@@ -3,21 +3,28 @@ from gensim.models import Word2Vec
 from gensim.models.word2vec import LineSentence
 
 import os
-
+import time
 print('Load Sentences...')
 cut_dir = 'cut_data/'
 files_name = os.listdir(cut_dir)
 sentences = LineSentence(cut_dir+'cut.txt')
 
 print('Initial Model...')
-model = Word2Vec(min_count=30, size=200)
+if(os.path.exists('my.model')):
+	print('Continue training')
+	model = Word2Vec.load('my.model')
+else:
+	print('Create New Model')
+	model = Word2Vec(min_count=500, size=250, workers=2)
+	print('Build Vocab...')
+	model.build_vocab(sentences)
 
-print('Build Vocab...')
-model.build_vocab(sentences)
 
-for i in range(1):
+tstart = time.time()
+for i in range(20):
 	print('Train model, Step ', i)
 	model.train(sentences)
+	print(time.time()-tstart)
 
 model.save('my.model')
 

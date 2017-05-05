@@ -59,14 +59,20 @@ def preprocess(in_filename, out_filename):
 
 
 if __name__ == '__main__':
-	data_dir = 'data/'
+	data_dir = '/home/navallo/Documents/DATA/formalCompetition4/News_info_train/'
 	cut_data_dir = 'cut_data/'
 	#output_file_name = 'cut.txt'
 	#output_file = open(output_file_name, 'a')
 	files = os.listdir(data_dir)	
 
+	flag = 1
 	for afile in files:
-		if afile[0] == '.' || afile =='readme.md':
+#		if afile[0] == '.' || afile =='readme.md':
+#			continue
+		if flag == 10:
+			flag = 1
+		else:
+			flag = flag + 1
 			continue
 		print('Preprocessing...:', afile)
 		preprocess(data_dir+afile, cut_data_dir + 'cut.txt')

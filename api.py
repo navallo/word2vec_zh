@@ -4,6 +4,7 @@ model = Word2Vec.load('my.model')
 def w(target):
 	try:
 		tup = model.similar_by_word(target)
+#		print(model['target'])
 	except:
 		raise
 	for i in tup:
